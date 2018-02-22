@@ -6,6 +6,7 @@
 #define SNAKE_GAMEENGINE_H
 
 #include <conio.h>
+#include <afxres.h>
 #include "Board.h"
 
 class GameEngine{
@@ -17,6 +18,7 @@ public:
     void Input();
     void processKey(char key);
     void Run();
+    char waitForUserInput(int second);
 };
 
 GameEngine::GameEngine(int height, int width) {
@@ -24,15 +26,11 @@ GameEngine::GameEngine(int height, int width) {
 }
 
 void GameEngine::Input() {
-    if(_kbhit()){
-        char current = _getch();
-        try{
-            processKey(current);
-        }catch(Snake::GameOverException) {
-            quit = true;
-        }
-    }else{
-        board->MoveSnake(board->SnakeCurrentDirection());
+    char current = waitForUserInput(1);
+    try{
+        processKey(current);
+    }catch(Snake::GameOverException) {
+        quit = true;
     }
 }
 
@@ -40,12 +38,16 @@ void GameEngine::processKey(char key) {
     switch(key){
         case 'w':
             board->MoveSnake(UP);
+            break;
         case 's':
             board->MoveSnake(DOWN);
+            break;
         case 'd':
             board->MoveSnake(RIGHT);
+            break;
         case 'a':
             board->MoveSnake(LEFT);
+            break;
     }
 }
 
@@ -55,6 +57,19 @@ void GameEngine::Run(){
 //        board->Draw();
         this->board->showSnakeLog();
     }
+}
+
+char GameEngine::waitForUserInput(int seconds) {
+    char c = 'w'; //the default char
+    while(seconds != 0){
+        if(_kbhit()){
+            c = _getch();
+            break;
+        }
+        Sleep(1000);
+        --seconds;
+    }
+    return c;
 }
 
 

@@ -96,7 +96,7 @@ std::pair<int, int> Snake::currCoordinate() {
 void Snake::checkColisionWithSelf(std::pair<int,int> newCoord) {
     for(std::pair<int,int> coordinates : *SnakeCoordinates){
         if(newCoord==coordinates){
-            throw new GameOverException();
+            throw GameOverException();
         }
     }
     return;
@@ -112,8 +112,9 @@ bool Snake::isCoordinatePartOfSnake(std::pair<int,int> newCoord) {
 }
 
 void Snake::printSnakeLog() {
-    for(std::pair<int,int> coordinate : *SnakeCoordinates){
-        std::cout << coordinate.first +  "," + coordinate.second << std::endl;
+    for(auto& coordinate : *SnakeCoordinates){
+        printf("[%d , %d]\n",coordinate.first,coordinate.second);
+        fflush(stdout);
     }
 }
 

@@ -78,7 +78,7 @@ void Board::MoveSnake(Direction direction){
     if(snake->checkTreatEaten(treat)){
         snake->IncreaseSnakeLength();
     }else if(checkCollisionSnakeWithBoard()){
-        throw new Snake::GameOverException();
+        throw Snake::GameOverException();
     }
     return;
 }
