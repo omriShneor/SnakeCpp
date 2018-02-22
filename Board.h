@@ -23,10 +23,12 @@ public:
     void MoveSnake(Direction direction);
     bool checkCollisionSnakeWithBoard();
     Direction SnakeCurrentDirection();
+
+    void showSnakeLog();
 };
 
 Board::Board(int height,int width):height(height),width(width) {
-    snake = new Snake((height/2)-1,(width/2)-1,UP);
+    snake = new Snake((width/2)-1,(height/2)-1,UP);
     std::pair<int, int> *pPair = RandomCoordinate();
     treat = new Treat(pPair->first,pPair->second);
     delete pPair;
@@ -83,6 +85,10 @@ void Board::MoveSnake(Direction direction){
 
 Direction Board::SnakeCurrentDirection() {
     return snake->getDirection();
+}
+
+void Board::showSnakeLog(){
+    this->snake->printSnakeLog();
 }
 
 #endif //SNAKE_BOARD_H

@@ -29,6 +29,7 @@ public:
     bool checkTreatEaten(Treat* treat);
     class GameOverException{};
     bool isCoordinatePartOfSnake(std::pair<int, int> newCoord);
+    void printSnakeLog();
 };
 
 Snake::Snake(int x,int y,Direction dir) : direction(dir){
@@ -45,7 +46,7 @@ Snake::~Snake(){
 void Snake::moveSnake() {
     const std::pair<int, int> &pair = IncreaseSnakeLength();
     this->SnakeCoordinates->pop_back();
-    this->checkColisionWithSelf(pair);
+    //this->checkColisionWithSelf(pair); what's the logic behind this?
 }
 
 std::pair<int,int> Snake::IncreaseSnakeLength() {
@@ -108,6 +109,12 @@ bool Snake::isCoordinatePartOfSnake(std::pair<int,int> newCoord) {
         }
     }
     return false;
+}
+
+void Snake::printSnakeLog() {
+    for(std::pair<int,int> coordinate : *SnakeCoordinates){
+        std::cout << coordinate.first +  "," + coordinate.second << std::endl;
+    }
 }
 
 

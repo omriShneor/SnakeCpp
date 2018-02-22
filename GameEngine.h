@@ -16,7 +16,6 @@ public:
     GameEngine(int height,int width);
     void Input();
     void processKey(char key);
-
     void Run();
 };
 
@@ -53,7 +52,8 @@ void GameEngine::processKey(char key) {
 void GameEngine::Run(){
     while(!quit){
         Input();
-        board->Draw();
+//        board->Draw();
+        this->board->showSnakeLog();
     }
 }
 
