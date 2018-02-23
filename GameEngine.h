@@ -13,7 +13,7 @@ class GameEngine{
 private:
     bool quit = false;
     Board* board;
-    char lastValidCharInput = 'w' //initial value for this is 'w';
+    char lastValidCharInput = 'w'; //initial value for this is 'w';
 public:
     GameEngine(int height,int width);
     void Input();
@@ -31,7 +31,7 @@ void GameEngine::Input() {
     char current = waitForUserInput(1);
     try{
         processKey(current);
-    }catch(Snake::GameOverException) {
+    }catch(Snake::GameOverException&) {
         quit = true;
     }
 }
@@ -56,14 +56,14 @@ void GameEngine::processKey(char key) {
 void GameEngine::Run(){
     while(!quit){
         Input();
-//        board->Draw();
-        this->board->showSnakeLog();
+        board->Draw();
+//        this->board->showSnakeLog();
     }
 }
 
-char GameEngine::waitForUserInput(int seconds) {
+char GameEngine::waitForUserInput(int quarterSeconds) {
     char c = this->lastValidCharInput;
-    while(seconds != 0){
+    while(quarterSeconds != 0){
         if(_kbhit()){
             c = _getch();
             if(checkValidKey(c)){
@@ -71,8 +71,8 @@ char GameEngine::waitForUserInput(int seconds) {
             }
             break;
         }
-        Sleep(1000);
-        --seconds;
+        Sleep(250);
+        --quarterSeconds;
     }
     return c;
 }

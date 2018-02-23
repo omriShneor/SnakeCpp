@@ -44,7 +44,7 @@ Snake::~Snake(){
 
 
 void Snake::moveSnake() {
-    const std::pair<int, int> &pair = IncreaseSnakeLength();
+    IncreaseSnakeLength();
     this->SnakeCoordinates->pop_back();
     //this->checkColisionWithSelf(pair); what's the logic behind this?
 }

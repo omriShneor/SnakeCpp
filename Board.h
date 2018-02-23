@@ -19,7 +19,7 @@ public:
     Board(int height,int width);
     ~Board();
     void Draw();
-    std::pair<int,int>* RandomCoordinate();
+    std::pair<int,int> RandomCoordinate();
     void MoveSnake(Direction direction);
     bool checkCollisionSnakeWithBoard();
     Direction SnakeCurrentDirection();
@@ -29,10 +29,8 @@ public:
 
 Board::Board(int height,int width):height(height),width(width) {
     snake = new Snake((width/2)-1,(height/2)-1,UP);
-    std::pair<int, int> *pPair = RandomCoordinate();
-    treat = new Treat(pPair->first,pPair->second);
-    delete pPair;
-
+    std::pair<int, int> pair = RandomCoordinate();
+    treat = new Treat(pair.first,pair.second);
 }
 
 Board::~Board() {
@@ -58,10 +56,10 @@ void Board::Draw() {
     }
 }
 
-std::pair<int,int>* Board::RandomCoordinate(){
+std::pair<int,int> Board::RandomCoordinate(){
     int temp_x = rand()%(width-1) + 1;
     int temp_y = rand()%(height-1) + 1;
-    return new std::pair<int,int>(temp_x,temp_y);
+    return std::pair<int,int>(temp_x,temp_y);
 }
 
 bool Board::checkCollisionSnakeWithBoard() {
@@ -77,6 +75,8 @@ void Board::MoveSnake(Direction direction){
     snake->moveSnake();
     if(snake->checkTreatEaten(treat)){
         snake->IncreaseSnakeLength();
+		std::pair<int, int> newTreatCoordinate = RandomCoordinate();
+		treat->newCoordinate(newTreatCoordinate.first,newTreatCoordinate.second);
     }else if(checkCollisionSnakeWithBoard()){
         throw Snake::GameOverException();
     }
