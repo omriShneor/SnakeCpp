@@ -13,12 +13,14 @@ class GameEngine{
 private:
     bool quit = false;
     Board* board;
+    char lastValidCharInput = 'w' //initial value for this is 'w';
 public:
     GameEngine(int height,int width);
     void Input();
     void processKey(char key);
     void Run();
     char waitForUserInput(int second);
+    bool checkValidKey(char c);
 };
 
 GameEngine::GameEngine(int height, int width) {
@@ -60,16 +62,26 @@ void GameEngine::Run(){
 }
 
 char GameEngine::waitForUserInput(int seconds) {
-    char c = 'w'; //the default char
+    char c = this->lastValidCharInput;
     while(seconds != 0){
         if(_kbhit()){
             c = _getch();
+            if(checkValidKey(c)){
+            	this->lastValidCharInput = c;
+            }
             break;
         }
         Sleep(1000);
         --seconds;
     }
     return c;
+}
+
+bool GameEngine::checkValidKey(char c){
+	if(c != 'a' && c != 's' && c!='d' && c!='w'){
+		return false;
+	}
+	return true;
 }
 
 
