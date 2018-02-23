@@ -71,7 +71,7 @@ char GameEngine::waitForUserInput(int quarterSeconds) {
             }
             break;
         }
-        Sleep(250);
+        Sleep(100);
         --quarterSeconds;
     }
     return c;

@@ -83,7 +83,7 @@ void Snake::changeDirection(Direction dir) {
 }
 
 bool Snake::checkTreatEaten(Treat *treat) {
-    if(treat->getX() == this->SnakeCoordinates->front().first && treat->getY() == this->SnakeCoordinates->front().second){
+    if(this->isCoordinatePartOfSnake(std::pair<int,int>(treat->getX(),treat->getY()))){
         return true;
     }
     return false;
